@@ -1,0 +1,10 @@
+job_role = st.text_input("Job Role")
+    report_container = st.container()
+    if st.button("Generate Report!!",type="primary"):
+        
+        answer = conversational_rag_chain.invoke(
+            {"input": f"Shortlist top 2 candidates for the {job_role} based on resumes. Provide name, education and AI rating (out of 10) in a table.Give a 3 line summary for each candidate. Generate the response in markdown format."},
+            config={"configurable": {"session_id": "currentid"}},
+        )["answer"]
+        with report_container:  
+            st.markdown(answer)
